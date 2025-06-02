@@ -1,5 +1,5 @@
 # Penjelasan Implementasi
-Aplikasi Todo yang saya buat menggunakan arsitektur MVVM + Repository Pattern
+Aplikasi Todo yang dikembangkan menggunakan arsitektur MVVM + Repository Pattern
 
 ## 🏗️ Arsitektur & Design Pattern
 - MVVM (Model-View-ViewModel): Memisahkan UI logic dari business logic
@@ -49,5 +49,3 @@ Mock API digunakan untuk:
 4. Toggle complete dengan checkbox
 5. Delete dengan tombol delete
 6. Sync dengan server menggunakan refresh button
-
-Aplikasi ini mengimplementasikan best practices Android development dengan clean code, separation of concerns, dan modern architecture patterns yang mudah untuk di-maintain dan dikembangkan lebih lanjut.
