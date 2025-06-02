@@ -1,5 +1,5 @@
 # Penjelasan Implementasi
-Aplikasi Todo yang saya buat menggunakan arsitektur MVVM + Repository Pattern:
+Aplikasi Todo yang saya buat menggunakan arsitektur MVVM + Repository Pattern
 
 ## 🏗️ Arsitektur & Design Pattern
 - MVVM (Model-View-ViewModel): Memisahkan UI logic dari business logic
@@ -9,17 +9,17 @@ Aplikasi Todo yang saya buat menggunakan arsitektur MVVM + Repository Pattern:
 
 ## 📱 Fitur Utama
 
-### A. Local Storage (Room Database):
+#### A. Local Storage (Room Database):
 1. CRUD operations untuk todo items
 2. Offline-first approach
 3. Reactive data dengan Flow
 
-### B. Remote API Integration:
+#### B. Remote API Integration:
 1. Retrofit untuk HTTP requests ke Mock API
 2. Automatic sync dengan server
 3. Error handling
 
-### C. State Management:
+#### C. State Management:
 1. StateFlow untuk reactive UI
 2. Compose state management
 3. Loading dan error states
