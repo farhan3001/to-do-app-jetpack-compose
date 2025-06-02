@@ -1,5 +1,5 @@
 # To do App
-A simple todo app using Kotlin Jetpack Compose + RoomDB + Mockapi.io
+A simple yet robust todo app utilizing Kotlin Jetpack Compose + RoomDB + Mockapi.io
 
 ## App Features:
 1. Add your todo task + description as well as the task's deadline
