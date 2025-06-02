@@ -40,10 +40,10 @@ Mock API digunakan untuk:
 
 ## 📂 Struktur Project
 com.chexup.test.todoapp/
-├── data/           # Data layer (Repository, DAO, API)
-├── domain/         # Business logic (Use Cases, Models)
-├── presentation/   # UI layer (Screens, ViewModels)
-└── di/             # Dependency Injection
+├──data/           # Data layer (Repository, DAO, API)
+├──domain/         # Business logic (Use Cases, Models)
+├──presentation/   # UI layer (Screens, ViewModels)
+└──di/             # Dependency Injection
 
 ## 🚀 Cara Menggunakan
 1. Clone project dan sync gradle
