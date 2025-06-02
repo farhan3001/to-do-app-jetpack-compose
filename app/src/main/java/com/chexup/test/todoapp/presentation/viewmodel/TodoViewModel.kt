@@ -26,7 +26,7 @@ class TodoViewModel @Inject constructor(
     private val _todos = MutableStateFlow<List<Todo>>(emptyList())
     val todos: StateFlow<List<Todo>> = _todos.asStateFlow()
 
-    private val _isLoading = mutableStateOf(false)
+    private val _isLoading = mutableStateOf(true)
     val isLoading: State<Boolean> = _isLoading
 
     private val _error = mutableStateOf<String?>(null)
@@ -74,21 +74,6 @@ class TodoViewModel @Inject constructor(
         }
     }
 
-    fun updateTodo(todo: Todo) {
-        viewModelScope.launch {
-            _isLoading.value = true
-            todoUseCase.updateTodo(todo).fold(
-                onSuccess = {
-                    _error.value = null
-                },
-                onFailure = { exception ->
-                    _error.value = exception.message ?: "Failed to update todo"
-                }
-            )
-            _isLoading.value = false
-        }
-    }
-
     fun toggleTodoComplete(todo: Todo) {
         viewModelScope.launch {
             todoUseCase.toggleTodoComplete(todo).fold(
@@ -129,6 +114,10 @@ class TodoViewModel @Inject constructor(
                 }
             )
             _isRefreshing.value = false
+            if (_isLoading.value) {
+                _isLoading.value = false
+            }
+
         }
     }
 

@@ -2,10 +2,12 @@ package com.chexup.test.todoapp.data.repository
 
 
 import com.chexup.test.todoapp.data.local.database.TodoDao
-import com.chexup.test.todoapp.data.local.entity.TodoEntity
+import com.chexup.test.todoapp.data.local.entity.toDomainModel
 import com.chexup.test.todoapp.data.remote.api.TodoApiService
-import com.chexup.test.todoapp.data.remote.dto.TodoDto
+import com.chexup.test.todoapp.data.remote.dto.toDomainModel
 import com.chexup.test.todoapp.domain.model.Todo
+import com.chexup.test.todoapp.domain.model.toDto
+import com.chexup.test.todoapp.domain.model.toEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -28,12 +30,9 @@ class TodoRepository @Inject constructor(
         }
     }
 
-    suspend fun getTodoById(id: String): Todo? {
-        return todoDao.getTodoById(id)?.toDomainModel()
-    }
-
     suspend fun insertTodo(todo: Todo) {
         addTodoRemote(todo)
+        syncTodosFromRemote()
     }
 
     suspend fun updateTodo(todo: Todo) {
@@ -100,51 +99,4 @@ class TodoRepository @Inject constructor(
             Result.failure(e)
         }
     }
-}
-
-private fun TodoEntity.toDomainModel(): Todo {
-    return Todo(
-        id = id,
-        taskName = taskName,
-        taskDescription = taskDescription,
-        dateCreated = dateCreated,
-        dateEnded = dateEnded,
-        isCompleted = isCompleted,
-        isSynced = isSynced
-    )
-}
-
-private fun Todo.toEntity(): TodoEntity {
-    return TodoEntity(
-        id = id,
-        taskName = taskName,
-        taskDescription = taskDescription,
-        dateCreated = dateCreated,
-        dateEnded = dateEnded,
-        isCompleted = isCompleted,
-        isSynced = isSynced
-    )
-}
-
-private fun TodoDto.toDomainModel(): Todo {
-    return Todo(
-        id = id,
-        taskName = taskName,
-        taskDescription = taskDescription,
-        dateCreated = dateCreated,
-        dateEnded = dateEnded,
-        isCompleted = isCompleted,
-        isSynced = true
-    )
-}
-
-private fun Todo.toDto(): TodoDto {
-    return TodoDto(
-        id = id,
-        taskName = taskName,
-        taskDescription = taskDescription,
-        dateCreated = dateCreated,
-        dateEnded = dateEnded,
-        isCompleted = isCompleted,
-    )
 }

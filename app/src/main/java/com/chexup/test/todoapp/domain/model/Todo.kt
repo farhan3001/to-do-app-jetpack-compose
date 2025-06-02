@@ -1,6 +1,8 @@
 package com.chexup.test.todoapp.domain.model
 
 import android.os.Parcelable
+import com.chexup.test.todoapp.data.local.entity.TodoEntity
+import com.chexup.test.todoapp.data.remote.dto.TodoDto
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -17,3 +19,26 @@ data class Todo(
     val isCompleted: Boolean = false,
     val isSynced: Boolean = false
 ) : Parcelable
+
+fun Todo.toEntity(): TodoEntity {
+    return TodoEntity(
+        id = id,
+        taskName = taskName,
+        taskDescription = taskDescription,
+        dateCreated = dateCreated,
+        dateEnded = dateEnded,
+        isCompleted = isCompleted,
+        isSynced = isSynced
+    )
+}
+
+fun Todo.toDto(): TodoDto {
+    return TodoDto(
+        id = id,
+        taskName = taskName,
+        taskDescription = taskDescription,
+        dateCreated = dateCreated,
+        dateEnded = dateEnded,
+        isCompleted = isCompleted,
+    )
+}

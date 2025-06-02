@@ -21,10 +21,6 @@ class TodoUseCase @Inject constructor(
         return repository.getAllTodos()
     }
 
-    suspend fun getTodoById(id: String): Todo? {
-        return repository.getTodoById(id)
-    }
-
     suspend fun addTodo(
         taskName: String,
         taskDescription: String,
@@ -43,17 +39,6 @@ class TodoUseCase @Inject constructor(
             )
 
             repository.insertTodo(todo)
-//            repository.syncTodoToRemote(todo)
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    suspend fun updateTodo(todo: Todo): Result<Unit> {
-        return try {
-            val updatedTodo = todo.copy(isSynced = false)
-            repository.updateTodo(updatedTodo)
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
