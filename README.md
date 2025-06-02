@@ -39,37 +39,8 @@ Mock API digunakan untuk:
 - Sync Strategy: Offline-first dengan background sync
 
 ## 📂 Struktur Project
-app/
-├── data/                              # Data layer (Repository, DAO, API)
-│   ├── local/
-│   │   ├── database/
-│   │   │   ├── TodoDatabase.kt
-│   │   │   └── TodoDao.kt
-│   │   └── entity/
-│   │       └── TodoEntity.kt
-│   ├── remote/
-│   │   ├── api/
-│   │   │   └── TodoApiService.kt
-│   │   └── dto/
-│   │       └── TodoDto.kt
-│   └── repository/
-│       └── TodoRepository.kt
-├── domain/                           # Business logic (Use Cases, Models)
-│   ├── model/
-│   │   └── Todo.kt
-│   └── usecase/
-│       └── TodoUseCase.kt
-├── presentation/                     # UI layer (Screens, ViewModels)
-│   ├── ui/
-│   │   ├── MainActivity.kt
-│   │   ├── TodoScreen.kt
-│   │   └── components/
-│   │       ├── TodoItem.kt
-│   │       └── AddTodoDialog.kt
-│   └── viewmodel/
-│       └── TodoViewModel.kt
-└── di/                               # Dependency Injection
-    └── AppModule.kt
+![image](https://github.com/user-attachments/assets/66268801-4ff8-43b4-8b11-f7aad5bf76e5)
+
 
 ## 🚀 Cara Menggunakan
 1. Clone project dan sync gradle
