@@ -87,7 +87,7 @@ fun TodoScreen(
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(22.dp)
                 ) {
                     items(
                         items = todos,

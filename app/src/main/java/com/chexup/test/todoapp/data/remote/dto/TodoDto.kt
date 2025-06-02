@@ -16,5 +16,7 @@ data class TodoDto(
     @SerializedName("dateCreated")
     val dateCreated: String,
     @SerializedName("dateEnded")
-    val dateEnded: String
+    val dateEnded: String,
+    @SerializedName("isCompleted")
+    val isCompleted: Boolean
 )

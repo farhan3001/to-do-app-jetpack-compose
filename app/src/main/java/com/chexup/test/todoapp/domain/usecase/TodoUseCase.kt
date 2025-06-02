@@ -43,7 +43,7 @@ class TodoUseCase @Inject constructor(
             )
 
             repository.insertTodo(todo)
-            repository.syncTodoToRemote(todo)
+//            repository.syncTodoToRemote(todo)
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
@@ -54,7 +54,6 @@ class TodoUseCase @Inject constructor(
         return try {
             val updatedTodo = todo.copy(isSynced = false)
             repository.updateTodo(updatedTodo)
-            repository.syncTodoToRemote(updatedTodo)
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
@@ -74,9 +73,6 @@ class TodoUseCase @Inject constructor(
     suspend fun deleteTodo(todo: Todo): Result<Unit> {
         return try {
             repository.deleteTodo(todo)
-            if (todo.isSynced) {
-                repository.deleteTodoFromRemote(todo.id)
-            }
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)

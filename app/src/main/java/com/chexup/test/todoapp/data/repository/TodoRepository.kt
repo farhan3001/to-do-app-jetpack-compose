@@ -33,19 +33,17 @@ class TodoRepository @Inject constructor(
     }
 
     suspend fun insertTodo(todo: Todo) {
-        todoDao.insertTodo(todo.toEntity())
+        addTodoRemote(todo)
     }
 
     suspend fun updateTodo(todo: Todo) {
         todoDao.updateTodo(todo.toEntity())
+        updateTodoRemote(todo.id, todo)
     }
 
     suspend fun deleteTodo(todo: Todo) {
         todoDao.deleteTodo(todo.toEntity())
-    }
-
-    suspend fun deleteTodoById(id: String) {
-        todoDao.deleteTodoById(id)
+        deleteTodoFromRemote(todo.id)
     }
 
     suspend fun syncTodosFromRemote(): Result<List<Todo>> {
@@ -64,29 +62,33 @@ class TodoRepository @Inject constructor(
         }
     }
 
-    suspend fun syncTodoToRemote(todo: Todo): Result<Todo> {
+    private suspend fun addTodoRemote(todo: Todo): Result<Unit> {
         return try {
-            val response = if (todo.id.isEmpty()) {
-                apiService.createTodo(todo.toDto())
-            } else {
-                apiService.updateTodo(todo.id, todo.toDto())
-            }
-
+            val response = apiService.createTodo(todo.toDto())
             if (response.isSuccessful) {
-                val syncedTodo = response.body()?.toDomainModel()?.copy(isSynced = true)
-                syncedTodo?.let {
-                    todoDao.insertTodo(it.toEntity())
-                    Result.success(it)
-                } ?: Result.failure(Exception("Empty response body"))
+                Result.success(Unit)
             } else {
-                Result.failure(Exception("Failed to sync todo: ${response.message()}"))
+                Result.failure(Exception("Failed to delete todo: ${response.message()}"))
             }
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    suspend fun deleteTodoFromRemote(id: String): Result<Unit> {
+    private suspend fun updateTodoRemote(id: String, todo: Todo): Result<Unit> {
+        return try {
+            val response = apiService.updateTodo(id, todo.toDto())
+            if (response.isSuccessful) {
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception("Failed to delete todo: ${response.message()}"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    private suspend fun deleteTodoFromRemote(id: String): Result<Unit> {
         return try {
             val response = apiService.deleteTodo(id)
             if (response.isSuccessful) {
@@ -131,7 +133,7 @@ private fun TodoDto.toDomainModel(): Todo {
         taskDescription = taskDescription,
         dateCreated = dateCreated,
         dateEnded = dateEnded,
-        isCompleted = false,
+        isCompleted = isCompleted,
         isSynced = true
     )
 }
@@ -142,6 +144,7 @@ private fun Todo.toDto(): TodoDto {
         taskName = taskName,
         taskDescription = taskDescription,
         dateCreated = dateCreated,
-        dateEnded = dateEnded
+        dateEnded = dateEnded,
+        isCompleted = isCompleted,
     )
 }
